@@ -1,0 +1,10 @@
+{
+  "name": "become-ai",
+  "displayName": "Become",
+  "type": "cocapn-vessel",
+  "category": "infrastructure",
+  "description": "Git-agent that becomes whatever you need. Captain-to-cocapn self-evolution with bootcamp archetype catalog.",
+  "capabilities": ["bootcamp", "captain-to-cocapn", "archetype-mapping", "overnight-mode"],
+  "endpoints": { "health": "/health", "become": "/api/become", "apply": "/api/apply", "overnight": "/api/overnight", "state": "/api/state", "chat": "/api/chat" },
+  "deployment": { "url": "https://become-ai.casey-digennaro.workers.dev" }
+}

@@ -1,0 +1,8 @@
+name = "become-ai"
+main = "src/worker.ts"
+compatibility_date = "2025-01-01"
+account_id = "049ff5e84ecf636b53b162cbb580aae6"
+
+[[kv_namespaces]]
+binding = "BECOME_KV"
+id = "05faaaacadcf444a81033ff93b832da5"

@@ -30,14 +30,14 @@ async function llm(prompt: string, key: string, system: string): Promise<string>
 }
 
 async function ghGet(path: string, token: string): Promise<any> {
-  const r = await fetch(GH_API + path, { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' } });
+  const r = await fetch(GH_API + path, { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'User-Agent': 'become-ai/1.0' } });
   return r.json();
 }
 
 async function ghPost(path: string, token: string, body: any): Promise<any> {
   const r = await fetch(GH_API + path, {
     method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'User-Agent': 'become-ai/1.0', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
   return r.json();
@@ -46,7 +46,7 @@ async function ghPost(path: string, token: string, body: any): Promise<any> {
 async function ghPut(path: string, token: string, body: any): Promise<any> {
   const r = await fetch(GH_API + path, {
     method: 'PUT',
-    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json', 'User-Agent': 'become-ai/1.0', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
   return r.json();

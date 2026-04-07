@@ -1,68 +1,51 @@
-# Become AI
+# Become AI: A Git Agent That Rewrites Its Own Code ✨
 
-You start with a minimal agent base. Through guided self-modification, you grow it into a tool that fits your specific task.
-
-This is a git-native agent that rewrites its own source code through real, traceable commits. It is part of the Cocapn Fleet.
+You start with a 12-line Cloudflare Worker that responds "I'm here." Through self-modification, you guide it to become the tool you need. Every change is a real git commit you can review.
 
 **Live Instance:** https://become-ai.casey-digennaro.workers.dev
 
 ---
 
-## The Problem
-Most agent frameworks require you to adapt your needs to their pre-built capabilities, involving complex setup and glue code. You often get a system that is nearly useful but not quite right.
-
-## The Approach
-This agent starts as a simple, minimal function. You provide plain-language instructions for what you need. It then proposes and makes iterative changes to its own codebase, with each change recorded as a standard git commit you can review, accept, or reject.
-
----
-
-## What This Provides
-- **Transparent Evolution:** Every proposed change is a diff. Every accepted change is a commit. There is no hidden runtime or black-box logic.
-- **Fork-First Ownership:** You deploy your own copy immediately. You control its evolution path and repository.
-- **Zero Dependencies:** It runs on the standard Cloudflare Workers runtime. No npm packages, no build steps.
-- **Optional Automation:** You can guide each step, schedule unattended improvement cycles, or pause evolution entirely.
-
-## Current Features
-- **Guided Self-Modification:** Submit a goal (e.g., "become a support bot"). The agent plans and executes a series of code changes to approach that goal.
-- **Git Integration:** Direct, authenticated access to its own repository to commit changes.
-- **State Tracking:** Evolution progress and context are stored in Cloudflare KV.
-- **Inspection Endpoints:** API routes to check the current state, view pending proposals, and audit the change history.
-- **Standard Interfaces:** Health check and basic chat endpoints that themselves evolve.
-
-**Note:** The agent's effectiveness is tied to the specificity of your instructions and the capabilities of the underlying LLM. It iteratively improves but may not achieve complex, multi-faceted goals in a single run.
+## Why This Exists
+Many AI tools are generic. You need a starting point you control that grows only in the direction you specify. This does not ship with features. It ships with the ability to build them for you, one commit at a time.
 
 ---
 
 ## Quick Start
-1.  Fork this repository.
-2.  Deploy it to Cloudflare Workers.
-3.  Set the required environment secrets: `DEEPSEEK_API_KEY` and a `GITHUB_TOKEN` with repo permissions.
-4.  Send a POST request to `/api/become` with a JSON body describing your goal (e.g., `{"goal": "Add a /status endpoint"}`).
+1.  **Fork** this repository. You own the code from the start.
+2.  Deploy the single file to Cloudflare Workers. There are zero dependencies and no build steps.
+3.  Add two secrets to your Worker: `DEEPSEEK_API_KEY` and a `GITHUB_TOKEN` with repo write access.
+4.  POST to `/api/become` with a JSON goal:
+    ```json
+    {"goal": "Add an endpoint that returns the current time in UTC"}
+    ```
 
-You can also interact with the live instance to see the workflow:  
-https://become-ai.casey-digennaro.workers.dev
-
----
-
-## Requirements
-You must supply your own API keys. The agent does not proxy or store credentials.
-- `DEEPSEEK_API_KEY`: Used for code generation and planning.
-- `GITHUB_TOKEN`: Used with `repo` scope to push commits to its own repository.
+You will see a commit appear on your forked repository.
 
 ---
 
-## Contributing
-This is a fork-first project. The canonical source is part of the Cocapn Fleet. To contribute to the core protocol, please open pull requests against the main fleet repository.
+## What It Does
+- **Self-modifies:** You submit a plain-language goal. The agent writes and commits changes to its own source code.
+- **Git-native:** Every change is a standard git commit with a message and diff. The history is traceable.
+- **You retain oversight:** You can review, accept, or revert every change before it runs.
+- **Zero runtime dependencies:** It runs entirely on the Cloudflare Workers runtime.
+- **Transparent state:** All context is stored in Cloudflare KV. There is no hidden memory.
+
+## Limitations
+- **Single-file evolution:** The agent currently modifies only its main `index.js` file. It cannot create or manage a multi-file project. Your application's complexity is constrained by a single script, which may become difficult to manage beyond 20-30 modifications.
+
+---
+
+## What Makes This Different
+1.  **You fork first.** You own the repository before any code is changed.
+2.  **It only changes itself.** This agent does not call external APIs or spin up services. It only edits the single file it runs from.
+3.  **No hidden guardrails.** There is no secret prompt layer overriding your instructions. You can tell it to become anything, and it will attempt your request.
+
+---
 
 ## License
-MIT
+MIT. Use it, break it, fork it.
 
----
+Attribution: Superinstance and Lucineer (DiGennaro et al.)
 
-**Attribution:** Superinstance & Lucineer (DiGennaro et al.)
-
----
-<div>
-  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> • 
-  <a href="https://cocapn.ai">Cocapn</a>
-</div>
+<div style="text-align:center;padding:16px;color:#64748b;font-size:.8rem"><a href="https://the-fleet.casey-digennaro.workers.dev" style="color:#64748b">The Fleet</a> &middot; <a href="https://cocapn.ai" style="color:#64748b">Cocapn</a></div>

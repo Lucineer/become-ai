@@ -2,6 +2,8 @@
 // Captain-to-cocapn: user instructions flow into the agent's own self-evolution
 // The agent does not build an app FOR you. It iterates itself INTO the app.
 
+const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*; frame-ancestors 'none';";
+
 interface Env {
   BECOME_KV: KVNamespace;
   DEEPSEEK_API_KEY: string;
@@ -263,7 +265,7 @@ export default {
       + '</div>'
       + '<div class="fleet"><a href="https://the-fleet.casey-digennaro.workers.dev">&#x2693; The Fleet</a> &middot; <a href="https://cocapn.ai">Cocapn</a> &middot; <a href="https://github.com/Lucineer/become-ai">GitHub</a></div>'
       + '</body></html>',
-      { headers: { 'Content-Type': 'text/html;charset=utf-8' } },
+      { headers: { 'Content-Type': 'text/html', 'Content-Security-Policy': CSP;charset=utf-8' } },
     );
   },
 };
